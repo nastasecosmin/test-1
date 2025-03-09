@@ -1,0 +1,584 @@
+/* Adaugam varaibile */
+:root {
+	--text-primary: #101d42;
+	--text-secondary: #fbb44c;
+	--text-dark: #2b2922;
+	--text-light: #eaeaea;
+	--text-white: #ffffff;
+
+	--bg-primary: #141e4c;
+	--bg-secondary: #dfedf5;
+	--bg-dark: #101d42;
+	--bg-light: #ffffff;
+
+	--button-color: #2bb686;
+
+	--fs-extralarge: 1.5rem;
+	--fs-large: 1rem;
+	--fs-medium: 0.875rem;
+	--fs-small: 1rem;
+
+	--spacing-xl: 2.625rem;
+	--spacing-large: 1.75rem;
+	--spacing-medium: 1rem;
+	--spacing-small: 0.5rem;
+	--spacing-tiny: 0.25rem;
+
+	--mobile-logo-height: 45px;
+}
+
+/* Resetam proprietatile default */
+* {
+	box-sizing: border-box;
+}
+
+body,
+h1,
+h2,
+h3,
+p {
+	margin: 0;
+	padding: 0;
+}
+
+ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	padding-inline-start: 0;
+}
+
+a {
+	display: block;
+	text-decoration: none;
+}
+
+/* Necesar pentru mobil */
+input[type="submit"] {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	opacity: 1;
+}
+
+/* Adaugam proprietati legate de font */
+body {
+	font-family: "Poppins", sans-serif;
+}
+
+h1 {
+	font-size: 3.5rem;
+}
+
+h2 {
+	font-size: 2rem;
+}
+
+h3 {
+	font-size: 1.5rem;
+}
+
+p {
+	font-size: var(--fs-small);
+}
+
+/* Adaugam proprietati legate de culori */
+h1 {
+	color: var(--text-light);
+}
+
+h2 {
+	color: var(--text-primary);
+}
+
+h3 {
+	color: var(--text-secondary);
+}
+
+p {
+	color: var(--text-dark);
+}
+
+/* Clase reutilizabile */
+.container {
+	max-width: 1200px;
+	min-width: 320px;
+	margin: auto;
+	padding: var(--spacing-small);
+}
+
+h2 {
+	font-family: "Work Sans", sans-serif;
+	font-weight: bold;
+	text-align: center;
+	padding: var(--spacing-large);
+}
+
+/* Layout */
+body {
+	display: flex;
+	flex-direction: column;
+
+	min-height: 100vh;
+}
+
+/* Stilizeara nav-ului */
+nav {
+	position: fixed;
+	top: 0;
+
+	width: 100%;
+
+	background-color: var(--bg-primary);
+
+	z-index: 3;
+}
+
+nav .container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+nav .logo-link {
+	padding: 0;
+}
+
+nav img {
+	width: auto;
+	height: 60px;
+}
+
+/* Meniul si checkbox-ul sunt necesare doar pentru versiunea de mobile. */
+nav .menu-icon {
+	color: var(--text-light);
+	display: none;
+}
+
+nav input[type="checkbox"] {
+	display: none;
+}
+
+nav ul {
+	display: flex;
+}
+
+nav li {
+	position: relative;
+}
+
+nav a {
+	font-size: var(--fs-small);
+	/* Transformam textul sa contina doar majuscule.*/
+	text-transform: uppercase;
+
+	color: var(--text-light);
+
+	padding: var(--spacing-medium);
+}
+
+nav .arrow-down-icon {
+	font-size: var(--fs-large);
+
+	/* Daca nu specificam top, left, right sau bottom, elementul va fi pozitionat automat, iar in acest caz il pozitioneaza fix cum trebuie. */
+	position: absolute;
+}
+/* part2 */
+nav a:hover {
+	color: var(--text-secondary);
+}
+
+nav .submenu {
+	/* Initial, submeniul nu este afisat. Afisarea sa se face la hover pe parinte. */
+	display: none;
+
+	position: absolute;
+	top: calc(100% - var(--spacing-small));
+	left: var(--spacing-medium);
+
+	width: 10rem;
+	padding: var(--spacing-tiny) 0;
+
+	background-color: var(--bg-dark);
+
+	z-index: 3;
+}
+
+nav .submenu a {
+	padding: var(--spacing-tiny) var(--spacing-small);
+}
+
+/* Atentie la acest selector! display: block se aplica pe elementul cu clasa submenu, doar atunci cand parintele cu clasa about us are hover! */
+nav .about-us:hover .submenu {
+	display: block;
+}
+
+/* Stilizarea pentru mobile */
+@media (max-width: 768px) {
+	nav img {
+		height: var(--mobile-logo-height);
+	}
+
+	/* Ascundem link-urile si afisam iconita de meniu, la pachet cu checkbox-ul.
+    De asemenea, ascundem submeniul (intrucat am avea nevoie de JS ca sa-l facem pe mobil) si iconita ce indica prezenta lui. */
+	nav ul {
+		display: none;
+	}
+
+	nav .menu-icon {
+		display: block;
+	}
+
+	nav .arrow-down-icon {
+		display: none;
+	}
+
+	nav .about-us:hover .submenu {
+		display: none;
+	}
+
+	nav .menu-icon-container {
+		position: relative;
+	}
+
+	/* Un nou tip de selector: sleectam input-ul care are ca atribut type="checkbox." */
+	nav input[type="checkbox"] {
+		/* Pe mobil checkbox-ul trebuie sa fie prezent pe ecran. */
+		display: block;
+
+		/* Practic, punem checkbox-ul deasupra iconitei de meniu. */
+		position: absolute;
+		top: 0;
+		left: 0;
+
+		height: 100%;
+		width: 100%;
+
+		/* Atentie, opacity 0 doar ascunde vizual elementul, ele inca este prezent pe ecran.*/
+		opacity: 0;
+
+		margin: 0;
+
+		/* Schimbam afisajul cursorului mouse-ului. */
+		cursor: pointer;
+	}
+
+	/* Doua tipuri noi de selector:
+    1. input:checked => elementul este stilizat doar daca checkbox-ul se afla in starea checked.
+    2. input:checked ~ ul => aplica CSS-ul doar pe FRATII (de acelasi nivel) lui input:checked aflati SUB el ca ordine. Evident, doar fratii care sunt ul. */
+	nav input[type="checkbox"]:checked ~ ul {
+		display: block;
+		width: 100%;
+
+		/* Cand vrem sa ne pozitionam absolut la viewport, folosim position: fixed. Position: absolute s-ar pozitiona fata de primul element relativ, ceea ce nu ne-ar ajuta. */
+		position: fixed;
+		/* Unde se afiseaza meniul extins pe mobil? Pai imediat sub nav. Cum calculam cat are nav-ul? Dimensiunea logo-ului + padding. */
+		top: calc(var(--mobile-logo-height) + 2 * var(--spacing-medium));
+		left: 0;
+
+		background-color: var(--bg-dark);
+	}
+}
+
+/* STILIZARE MAIN ABOUT*/
+main {
+	flex-grow: 1;
+}
+
+.title-courses {
+	background-color: var(--bg-primary);
+	height: 50vh;
+	display: flex;
+	justify-content: center;
+	text-align: center;
+}
+
+.trainers .trainers-container {
+	display: flex;
+	flex-wrap: wrap;
+	padding-bottom: var(--spacing-xl);
+}
+
+.trainers .card-wrapper {
+	width: 25%;
+	padding: 0 var(--spacing-small);
+}
+.trainers .trainer-card {
+	width: 100%;
+	height: 450px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 0 var(--spacing-small);
+	margin-top: calc(2 * var(--spacing-xl));
+	border: 1px solid rgba(102, 102, 102, 0.272);
+	border-radius: 5px;
+}
+
+.trainers .trainer-card img {
+	width: 180px;
+	height: 180px;
+	border-radius: 50%;
+	margin-top: -80px;
+	filter: grayscale(100%);
+}
+
+img {
+	overflow-clip-margin: content-box;
+	overflow: clip;
+}
+
+.trainers .trainer-card h3 {
+	width: 100%;
+	font-size: var(--fs-medium);
+	text-align: center;
+	border-radius: 6px;
+	padding: var(--spacing-small) 0;
+	margin-top: -30px;
+	margin-bottom: var(--spacing-small);
+	background-color: var(--bg-dark);
+	z-index: 2;
+	font-weight: normal;
+}
+
+/* Stilizarea pentru laptop */
+@media (max-width: 1130px) {
+	.trainers .card-wrapper {
+		padding: 0 var(--spacing-tiny);
+	}
+}
+
+/* STILIZARE MAIN COURSES */
+.courses-details-container {
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: wrap;
+	margin-left: 15rem;
+	margin-right: 15rem;
+}
+
+.courses-details-container .card-wrapper {
+	padding: 3 var(--spacing-small);
+	width: calc(100% / 3.5);
+	margin-bottom: calc(4 * var(--spacing-small));
+}
+
+.courses-details-container .course-card {
+	width: 100%;
+	border: 1px solid rgba(102, 102, 102, 0.272);
+	border-radius: 5px;
+	padding: 3px;
+	display: flex;
+	flex-direction: column;
+	align-content: space-around;
+	row-gap: 20px;
+}
+
+.courses-details-container .content {
+	display: flex;
+	flex-direction: column;
+	padding: var(--spacing-tiny);
+	row-gap: 20px;
+	color: #666;
+}
+
+.courses-details-container .content h3 {
+	font-family: "Work Sans", sans-serif;
+	font-weight: bold;
+	color: var(--text-primary);
+}
+
+.courses-details-container .content .certification {
+	display: flex;
+	font-family: "Poppins", sans-serif;
+}
+
+.courses-details-container .content .certification img {
+	height: 25px;
+	width: auto;
+	padding-left: var(--spacing-tiny);
+}
+
+.courses-details-container .content .extra-info > span {
+	padding-right: var(--spacing-small);
+	font-family: "Poppins", sans-serif;
+}
+
+.courses-details-container .content .extra-info .material-icons {
+	font-size: var(--fs-medium);
+	vertical-align: text-top;
+}
+
+.material-icons {
+	font-family: "Material Icons";
+	font-weight: normal;
+	font-style: normal;
+	font-size: 24px;
+	line-height: 1;
+	letter-spacing: normal;
+	text-transform: none;
+	display: inline-block;
+	white-space: nowrap;
+	word-wrap: normal;
+	direction: ltr;
+	-webkit-font-feature-settings: "liga";
+	-webkit-font-smoothing: antialiased;
+}
+
+.courses-details-container .content a {
+	height: auto;
+	width: 80px;
+	font-size: var(--fs-tiny);
+	font-family: "Poppins", sans-serif;
+	padding: 5px var(--spacing-tiny);
+	border: 2px solid var(--button-color);
+	border-radius: 4px;
+	margin-bottom: var(--spacing-small);
+	display: inline-block;
+	text-align: center;
+	background-color: var(--button-color);
+	color: var(--text-white);
+}
+
+/* STILIZARE MAIN CONTACT */
+.contact-wrapper {
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: wrap;
+	margin-bottom: 5rem;
+}
+
+.contact-wrapper label {
+	font-size: var(--fs-medium);
+}
+
+.contact-wrapper ul {
+	display: flex;
+	flex-direction: column;
+	padding: var(--spacing-medium);
+}
+
+.contact-wrapper li {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 10rem;
+	border-bottom: 0.5px solid black;
+}
+
+.contact-wrapper li p {
+	margin: 17px 17px;
+}
+
+.contact-form input {
+	border: 1px solid #ddd;
+	border-radius: 5px;
+}
+
+.contact-form input:focus {
+	border: 1px solid black;
+	outline: none;
+}
+
+.contact-wrapper p {
+	display: flex;
+	align-items: center;
+}
+
+.contact-wrapper a {
+	color: grey;
+}
+
+.contact-wrapper a:hover {
+	color: var(--text-primary);
+}
+
+.description {
+	color: grey;
+}
+
+.contact-form {
+	display: flex;
+	flex-direction: column;
+}
+
+.contact-form input {
+	margin-bottom: 10px;
+	width: 500px;
+	height: 32px;
+}
+
+#message {
+	height: 100px;
+}
+
+.contact-form label {
+	margin-bottom: 5px;
+}
+
+.contact-form textarea {
+	margin-bottom: 20px;
+}
+
+input[type="submit"] {
+	background-color: var(--button-color);
+	width: 120px;
+	border-radius: 6px;
+	color: var(--text-white);
+	border: 1px solid;
+}
+
+/* Footer */
+footer {
+	background-color: var(--bg-dark);
+}
+
+footer .info-container {
+	display: flex;
+	justify-content: space-evenly;
+	margin-top: calc(var(--spacing-xl) * 2);
+	margin-bottom: var(--spacing-xl);
+}
+
+footer h3 {
+	padding-bottom: var(--spacing-small);
+	font-size: var(--fs-extralarge);
+	font-weight: 400;
+	display: block;
+	margin-block-start: 1em;
+	margin-block-end: 1em;
+	margin-inline-start: 0px;
+	margin-inline-end: 0px;
+	unicode-bidi: isolate;
+}
+
+footer .border {
+	border-left: 1px solid #b0b0b0;
+}
+
+footer .column {
+	width: 25%;
+	padding-left: var(--spacing-medium);
+}
+
+footer li {
+	padding: 0.25rem 0;
+	color: var(--text-white);
+}
+
+footer img {
+	width: auto;
+	height: 25px;
+	margin-bottom: var(--spacing-tiny);
+}
+
+.container p {
+	padding: var(--spacing-medium);
+	margin-bottom: var(--spacing-medium);
+}
+
+footer p {
+	color: var(--text-light);
+	text-align: center;
+	font-size: 12px;
+}
